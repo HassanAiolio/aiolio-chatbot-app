@@ -102,6 +102,7 @@ function App() {
     if (!inputText.trim() || !currentSession) return;
 
     const userMessage = {
+      id: Date.now(),
       role: 'user',
       content: inputText.trim(),
       timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
@@ -119,11 +120,28 @@ function App() {
       });
       const data = await res.json();
 
-      setMessages(prev => [...prev, {
+      const botMessage = {
+        id: Date.now() + 1,
         role: 'assistant',
-        content: data.reply,
+        content: '',
         timestamp: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })
-      }]);
+      };
+      setMessages(prev => [...prev, botMessage]);
+
+      // Animate the text character by character
+      const fullText = data.reply;
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        setMessages(prev =>
+          prev.map(m =>
+            m.id === botMessage.id
+              ? { ...m, content: fullText.slice(0, i) }
+              : m
+          )
+        );
+        if (i >= fullText.length) clearInterval(interval);
+      }, 8); // 8ms per character — adjust for speed
 
       // Refresh sidebar to get auto-updated session name
       const sessionsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions`);
@@ -194,6 +212,13 @@ function App() {
 
   return (
     <div className={`app-container ${theme}`}>
+      {/* Mobile sidebar overlay */}
+      {sidebarOpen && window.innerWidth <= 768 && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`} data-testid="sidebar">
         <div className="sidebar-header">
