@@ -1,6 +1,8 @@
-# Aiolio
+# Aiolio Chatbot
 
 A full-stack AI chatbot web application built with React and FastAPI, powered by Groq's LLaMA 3.3 model.
+
+![Screenshot](screenshot.png)
 
 ![Dark mode](https://img.shields.io/badge/theme-dark%20%2F%20light-yellow)
 ![Stack](https://img.shields.io/badge/stack-React%20%2B%20FastAPI-blue)
@@ -60,8 +62,8 @@ Aiolio-Chatbot-app/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/HassanAiolio/aiolio-chatbotapp.git
-cd aiolio
+git clone https://github.com/HassanAiolio/aiolio-chatbot-app.git
+cd aiolio-chatbot-app
 ```
 
 ### 2. Backend setup
@@ -80,7 +82,7 @@ GROQ_API_KEY=your_api_key_here
 Start the server:
 
 ```bash
-uvicorn server:app --reload --port 8000
+python -m uvicorn server:app --reload --port 8000
 ```
 
 The API will be running at `http://localhost:8000`.
