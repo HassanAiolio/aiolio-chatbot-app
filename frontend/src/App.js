@@ -47,7 +47,7 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-  fetch('http://localhost:8000/api/sessions')
+  fetch(`${process.env.REACT_APP_API_URL}/api/sessions`)
     .then(res => res.json())
     .then(data => setSessions(data))
     .catch(err => console.error('Failed to load sessions:', err));
@@ -68,7 +68,7 @@ function App() {
   };
 
   const handleNewChat = async () => {
-    const res = await fetch('http://localhost:8000/api/sessions', {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({})
@@ -81,14 +81,14 @@ function App() {
 
   const handleSessionClick = async (session) => {
     setCurrentSession(session);
-    const res = await fetch(`http://localhost:8000/api/sessions/${session.id}/messages`);
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${session.id}/messages`);
     const data = await res.json();
     setMessages(data);
   };
 
   const handleDeleteSession = async (sessionId, e) => {
     e.stopPropagation();
-    await fetch(`http://localhost:8000/api/sessions/${sessionId}`, {
+    await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${sessionId}`, {
       method: 'DELETE'
     });
     setSessions(prev => prev.filter(s => s.id !== sessionId));
@@ -112,7 +112,7 @@ function App() {
     setIsTyping(true);
 
     try {
-      const res = await fetch(`http://localhost:8000/api/sessions/${currentSession.id}/chat`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${currentSession.id}/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: userMessage.content })
@@ -126,7 +126,7 @@ function App() {
       }]);
 
       // Refresh sidebar to get auto-updated session name
-      const sessionsRes = await fetch('http://localhost:8000/api/sessions');
+      const sessionsRes = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions`);
       setSessions(await sessionsRes.json());
 
     } catch (err) {
