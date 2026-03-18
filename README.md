@@ -92,10 +92,18 @@ The API will be running at `http://localhost:8000`.
 ```bash
 cd frontend
 npm install --legacy-peer-deps
+
+
 npx craco start
 ```
 
 The app will open at `http://localhost:3000`.
+
+> **Running locally?** The frontend reads the backend URL from the `REACT_APP_API_URL` environment variable. Create a `.env` file in the `frontend` folder with:
+> ```
+> REACT_APP_API_URL=http://localhost:8000
+> ```
+> Without this, API calls will fail. For production, set this variable to your deployed backend URL (e.g. on Render).
 
 ---
 
@@ -114,9 +122,10 @@ The app will open at `http://localhost:3000`.
 
 ## Environment Variables
 
-| Variable | Description |
-|---|---|
-| `GROQ_API_KEY` | Your Groq API key from console.groq.com |
+| Variable | Where | Description |
+|---|---|---|
+| `GROQ_API_KEY` | `backend/.env` | Your Groq API key from console.groq.com |
+| `REACT_APP_API_URL` | `frontend/.env` | Backend URL — `http://localhost:8000` locally, your Render URL in production |
 
 ---
 
