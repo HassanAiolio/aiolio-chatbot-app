@@ -125,14 +125,14 @@ The app will open at `http://localhost:3000`.
 | Variable | Where | Description |
 |---|---|---|
 | `GROQ_API_KEY` | `backend/.env` | Your Groq API key from console.groq.com |
-| `REACT_APP_API_URL` | `frontend/.env` | Backend URL — `http://localhost:8000` locally, your Render URL in production |
+| `REACT_APP_API_URL` | `frontend/.env` | Backend URL — `http://localhost:8000` locally, the Render URL in production |
 
 ---
 
 ## Notes
 
 - Sessions are stored in memory and reset on server restart. No database required.
-- The free Groq tier allows 14,400 requests/day — more than enough for personal use.
+- The free Groq tier allows 1,000 requests/day — more than enough for personal use.
 - To change Aiolio's personality, edit the `SYSTEM_PROMPT` constant in `server.py`.
 
 ---
