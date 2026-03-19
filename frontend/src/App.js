@@ -27,7 +27,7 @@ function App() {
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 768);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showClearDialog, setShowClearDialog] = useState(false);
@@ -77,6 +77,7 @@ function App() {
     setSessions(prev => [newSession, ...prev]);
     setCurrentSession(newSession);
     setMessages([]);
+    if (window.innerWidth <= 768) setSidebarOpen(false);
   };
 
   const handleSessionClick = async (session) => {
@@ -84,6 +85,7 @@ function App() {
     const res = await fetch(`${process.env.REACT_APP_API_URL}/api/sessions/${session.id}/messages`);
     const data = await res.json();
     setMessages(data);
+    if (window.innerWidth <= 768) setSidebarOpen(false);
   };
 
   const handleDeleteSession = async (sessionId, e) => {
