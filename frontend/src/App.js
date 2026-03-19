@@ -47,11 +47,19 @@ function App() {
   }, [messages]);
 
   useEffect(() => {
-  fetch(`${process.env.REACT_APP_API_URL}/api/sessions`)
-    .then(res => res.json())
-    .then(data => setSessions(data))
-    .catch(err => console.error('Failed to load sessions:', err));
-}, []);
+    fetch(`${process.env.REACT_APP_API_URL}/api/sessions`)
+      .then(res => res.json())
+      .then(data => setSessions(data))
+      .catch(err => console.error('Failed to load sessions:', err));
+  }, []);
+
+  useEffect(() => {
+    if (window.hljs) {
+      document.querySelectorAll('pre code').forEach((block) => {
+        window.hljs.highlightElement(block);
+      });
+    }
+  }, [messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -221,6 +229,16 @@ function App() {
           onClick={() => setSidebarOpen(false)}
         />
       )}
+
+      {/* Mobile menu toggle — outside sidebar and main */}
+      <button
+        className="mobile-menu-toggle"
+        onClick={() => setSidebarOpen(!sidebarOpen)}
+        data-testid="mobile-menu-toggle"
+      >
+        <Menu size={24} />
+      </button>
+      
       {/* Sidebar */}
       <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`} data-testid="sidebar">
         <div className="sidebar-header">
@@ -300,14 +318,6 @@ function App() {
 
       {/* Main Chat Area */}
       <main className="chat-area" data-testid="chat-area">
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="mobile-menu-toggle"
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          data-testid="mobile-menu-toggle"
-        >
-          <Menu size={24} />
-        </button>
 
         {currentSession ? (
           <>
