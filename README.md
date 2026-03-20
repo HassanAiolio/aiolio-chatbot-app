@@ -10,6 +10,8 @@ A full-stack AI chatbot web application built with React and FastAPI, powered by
 
 ---
 
+> ⚠️ **Live demo note:** The backend is hosted on Render's free tier, which spins down after periods of inactivity. The first message after idle may take up to 50 seconds while the server wakes up — subsequent messages will be fast.
+
 ## Features
 
 - **Multiple chat sessions** — create, switch between, and delete conversations
@@ -139,4 +141,4 @@ The app will open at `http://localhost:3000`.
 
 ## License
 
-Personal Project
+Personal Project | MIT
