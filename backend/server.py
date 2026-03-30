@@ -1,5 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 from pathlib import Path
 from pydantic import BaseModel
@@ -75,6 +76,10 @@ def now() -> str:
 async def health():
     return {"ok": True}
 
+@app.head("/api/health")
+async def health_head():
+    # Return empty body, same headers as GET
+    return JSONResponse(content=None)
 
 @api_router.get("/sessions", response_model=List[SessionOut])
 async def get_sessions():
