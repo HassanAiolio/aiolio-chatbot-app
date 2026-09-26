@@ -77,7 +77,13 @@ agenthub/agents/youtube/db
 .cache/
 
 # Mobile development
-android-sdk/ -e 
+android-sdk/
+
 # Environment files
+.env
 *.env
 *.env.*
+!.env.example
+
+# Test caches
+.pytest_cache/
